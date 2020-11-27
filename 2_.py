@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[112]:
+
 
 ### yapılması planlanan
 # bir şehrin 1 aylık/1 yıllık vs sıcaklık değerlerini bul onların üzerinden işlem yap
 # en az 500 veri olma gerekliliğini bir şekilde tamamla
 
+
+# In[113]:
 
 
 #bs4 parsing
@@ -13,6 +17,8 @@ from bs4 import BeautifulSoup as BS
 import requests
 import pandas as pd
 
+
+# In[114]:
 
 
 # tanımlamalar
@@ -28,6 +34,8 @@ if soup:
     print('thumbs up')
 
 
+# In[117]:
+
 
 # defining
 # yılın hangi ayında olduğunu bul
@@ -38,59 +46,35 @@ month_of_the_year = soup.find('option', selected=True)
 # çıktı: Pazartesi, Salı, Çarşamba...
 ### !!! günleri for döngüsü içinde komple olarak geçirmek lazım
 # aksi takdirde sadece bir tane gün değerini gönderiyor
-
-"""
-## günleri datetime modülü üzerinden alacağım 
-#### günleri el ile yazacağım
 day_of_the_week = soup.find_all('dt')
 days_name = []
 for day in day_of_the_week:
     days_name.append(day.string)
-"""
 
-days_name = ['pazar', 'pzrtesi', 'salı', 'çrşmb', 'prşmb', 'cuma', 'cmt']
-# ayın günlerini al (he
-
-
-"""
-KASIM-2020  'pazar', 'pzrtesi', 'salı', 'çrşmb', 'prşmb', 'cuma', 'cmt'
-1           15          17          15      10
-2
-3
-.
-.
-.
-.
-"""
-psini, aylık gösterim olacağından dolayı)
+# ayın günlerini al (hepsini, aylık gösterim olacağından dolayı)
 # çıktı: 1, 2, 3..
-#dayCells = soup.find_all('div', attrs={'class': 'date'})
-### daycell kısmında gerek yok direk olarak 31 tane tanımla geç 
-
+dayCells = soup.find_all('div', attrs={'class': 'date'})
 
 # alınan günlerde yaşanan sıcaklıklar
-dayTemp_div = soup.find_all('div', attrs={'class': 'temp hi'})
+dayTemps = soup.find_all('div', attrs={'class': 'temp hi'})
 
 
 #spliting
 month = month_of_the_year.text.split()
-# dayList 1'den 31'e kadar sayılar olacak
-#dayList = [x.text for x in dayCells]
-dayList = [num for num in range(1,32)]
-dayTemp = [x.text for x in dayTemp_div]
+dayList = [x.text for x in dayCells]
+dayTemp = [x.text for x in dayTemps]
 
 # belirli günleri ve o günlerdeki sıcaklıkları index temelli olarak birleştir
 day_temp = list(zip(dayList, dayTemp))
 
 
-df = pd.DataFrame(
-    data=dayTemp,
-    index=(dayList),
-    columns=(days_name)
-    )
 
-print(df)
+#calling
+#month
+#day_temp
+#days_name
 
-
-
-
+from pprint import pprint
+pprint(month)
+pprint(day_temp)
+pprint(days_name)
