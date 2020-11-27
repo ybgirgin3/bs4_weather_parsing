@@ -16,7 +16,7 @@
 from bs4 import BeautifulSoup as BS
 import requests
 import pandas as pd
-
+import sys
 
 # In[114]:
 
@@ -24,7 +24,8 @@ import pandas as pd
 # tanımlamalar
 
 # url üzerinden site verilerini çek
-#url = "https://weather.com/en-IN/weather/tenday/l/453cfbbd56d2feadb92b63729bbdfb0e278db70a2bae2d700e3c2a20c8efb7ae"
+# sehir ismine göre farklı linkleri çek
+city_input = sys.argv[1]
 url = 'https://weather.com/tr-TR/weather/monthly/l/453cfbbd56d2feadb92b63729bbdfb0e278db70a2bae2d700e3c2a20c8efb7ae'
 webpage = requests.get(url)
 
