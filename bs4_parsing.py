@@ -12,6 +12,7 @@
 from bs4 import BeautifulSoup as BS
 import requests
 import pandas as pd
+import csv
 
 
 
@@ -62,7 +63,6 @@ KASIM-2020  'pazar', 'pzrtesi', 'salı', 'çrşmb', 'prşmb', 'cuma', 'cmt'
 .
 .
 """
-psini, aylık gösterim olacağından dolayı)
 # çıktı: 1, 2, 3..
 #dayCells = soup.find_all('div', attrs={'class': 'date'})
 ### daycell kısmında gerek yok direk olarak 31 tane tanımla geç 
@@ -81,16 +81,5 @@ dayTemp = [x.text for x in dayTemp_div]
 
 # belirli günleri ve o günlerdeki sıcaklıkları index temelli olarak birleştir
 day_temp = list(zip(dayList, dayTemp))
-
-
-df = pd.DataFrame(
-    data=dayTemp,
-    index=(dayList),
-    columns=(days_name)
-    )
-
-print(df)
-
-
 
 
