@@ -106,7 +106,7 @@ arr = arr.reshape(5,7)
 
 
 df = pd.DataFrame(arr, columns= days_name)
-df.index += 1
+df.index += 
 print(df)
 #df.to_csv('sakarya_weather.csv')
 
