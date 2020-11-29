@@ -6,6 +6,12 @@
 
 import numpy as np
 import pandas as pd
+import pickle
+import matplotlib.pyplot as plt
+"""
+from pandas.plotting._matplotlib import converter
+converter.register()
+"""
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.ensemble import RandomForestRegressor
@@ -43,6 +49,16 @@ def train_data():
     # oluşturduğu değişiklikler şunlar 20201126T0000 -> 2019-01-01
     df['timestamp'] = df['timestamp'].str.replace('T0000', '')
     df.timestamp = pd.to_datetime(df.timestamp, format='%Y%m%d', errors='coerce')
+    df.timestamp = df.timestamp.map(datetime.datetime.toordinal)
+
+    """
+    # trying to plot
+    df.plot(x = 'timestamp', y = 'Temperature.2', style = '-')
+    plt.title('basel temp')
+    plt.xlabel('timestamp')
+    plt.ylabel('temp')
+    plt.show()
+    """
 
     # kullanmak istemediğimiz sutünları sil
     df = df.drop(columns=['Temperature', 'Temperature.1', 'Relative Humidity.1', 'Wind Speed.1'])
@@ -60,7 +76,7 @@ def train_data():
     X_train_scaled = scaler.transform(X_train)
 
     pipeline = make_pipeline(preprocessing.StandardScaler(),
-                        RandomForestRegressor(n_estimator=100))
+                        RandomForestRegressor(n_estimators=100))
 
     hyperparameters = { 'randomforestregressor__max_features' : ['auto', 'sqrt', 'log2'],
                 'randomforestregressor__max_depth' : [None, 5,3,1], }
@@ -69,9 +85,12 @@ def train_data():
     clf = LinearRegression()
     clf.fit(X_train, y_train)
     pred = clf.predict(X_test)
+    print(pred[0])
+    print(pred.shape)
     print(r2_score(y_test, pred))
     print(mean_squared_error(y_test, pred))
     joblib.dump(clf, 'weather_predictor.pkl')
+    print('Data train successfull')
 
 
 def get_the_weather(date):
@@ -104,9 +123,9 @@ def predict_weather():
     print('Tahmin de bulunmak istediğiniz gün ile ilgili detayları giriniz: ')
     print('\n')
 
-    year = input('YIL: ')
-    month = input('AY: ')
-    theday = input('DAY: ')
+    year = int(input('YIL: '))
+    month = int(input('AY: '))
+    theday = int(input('DAY: '))
 
     day = str(year) + "-" + str(month) + "-" + str(theday)
     day = datetime.datetime.strptime(day, '%Y-%m-%d')
@@ -123,6 +142,49 @@ def predict_weather():
     print('Aslında sıcaklık: ' + str(get_the_weather(day)))
     print('-'*48)
     print('\n')
+
+
+
+
+## queue of the job: (this whole shit must be in while loop. so no need to re-run everytime)
+##  train data (only when app run for the first time)
+##  predict weather
+##  get a date from user
+##  print the predicted weather information
+
+
+
+
+train_data()
+predict_weather()
+
+
+"""
+
+def menuBackend(option):
+    # usable options
+    # 1- train data
+    # 2- predict weather
+    if option == 1:
+        train_data()
+        # after training go to the menuFrontend Again
+        menuFrontend()
+    elif option == 2:
+        predict_weather()
+
+
+def menuFrontend():
+        ## What do you wanna do amk ??
+        #1- Train Data
+        #2- Predict Weather
+    opt = input('~# : ')
+    menuBackend(opt)
+
+
+
+if __name__ == '__main__':
+    while True:
+        menuFrontend()
 
 
 
@@ -158,3 +220,4 @@ if __name__== "__main__":
         else:
             run_program(option)
 
+"""
