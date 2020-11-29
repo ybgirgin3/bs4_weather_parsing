@@ -9,3 +9,9 @@
 
 ## dataframe oluşturma başarılı, geriye sadece tahmin algoritmaları kaldı
 <img src='2.png'/>
+
+
+
+
+## programın terminal ekranında sahip olacağı arayüz
+<img src="3.png"/>
