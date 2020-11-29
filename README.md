@@ -25,3 +25,4 @@
 
 # verilerin grafiksel gösterimi
 <img src="img/5.png"/>
+<img src="img/Figure_1.png"/>

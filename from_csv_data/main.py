@@ -51,14 +51,12 @@ def train_data():
     df.timestamp = pd.to_datetime(df.timestamp, format='%Y%m%d', errors='coerce')
     df.timestamp = df.timestamp.map(datetime.datetime.toordinal)
 
-    """
     # trying to plot
     df.plot(x = 'timestamp', y = 'Temperature.2', style = '-')
     plt.title('basel temp')
     plt.xlabel('timestamp')
     plt.ylabel('temp')
     plt.show()
-    """
 
     # kullanmak istemediğimiz sutünları sil
     df = df.drop(columns=['Temperature', 'Temperature.1', 'Relative Humidity.1', 'Wind Speed.1'])
