@@ -15,3 +15,8 @@
 
 ## programın terminal ekranında sahip olacağı arayüz
 <img src="3.png"/>
+
+
+
+# data train etme ve pkl dosyası olarak atama işlemi tamamlandı
+<img src="4.png"/>
