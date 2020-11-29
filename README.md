@@ -20,3 +20,8 @@
 
 # data train etme ve pkl dosyası olarak atama işlemi tamamlandı
 <img src="img/4.png"/>
+
+
+
+# verilerin grafiksel gösterimi
+<img src="img/5.png"/>
