@@ -33,11 +33,13 @@ from sklearn.tree import DecisionTreeRegressor
 # In[3]:
 
 
-# read dataset
-dataset = 'basel_daily.csv'
-df  = pd.read_csv(dataset, skiprows=9)
-
 def train_data():
+    # read dataset
+    dataset = 'basel_daily.csv'
+    df  = pd.read_csv(dataset, skiprows=9)
+
+
+    print('traindata')
     # oluşturduğu değişiklikler şunlar 20201126T0000 -> 2019-01-01
     df['timestamp'] = df['timestamp'].str.replace('T0000', '')
     df.timestamp = pd.to_datetime(df.timestamp, format='%Y%m%d', errors='coerce')
@@ -126,27 +128,33 @@ def predict_weather():
 
 def run_menu():
     print("*" *48)
-    print("-" *10 + " Ne yapmak istersiniz ? " + "-" * 10)
+    print("-" *10 + " What would you like to do? " + "-" *10)
     print("\n")
-    print("1. Tanımlı bir gün için hava sıcaklığına bak")
-    print("2. Tanımlı bir gün içi hava sıcaklığı tahmini yap")
-    print("3. eğit")
+    print("1. Look up the weather on a specific day")
+    print("2. Predict the weather on a specific day")
     print("\n")
-    
-    option = input('Bir seçenek giriniz: ')
 
+    option = input("Enter option: ")
+
+    while True:
+        if option == 2 or option == 1 or option == 9:
+            break
+        option = input("Enter option: ")
+    return option
+
+def run_program(option):
     if option == 1:
         print("1")
     elif option == 2:
         predict_weather()
-    elif option == 3:
-        train_data()
-    elif option == 9:
-        import sys
-        sys.exit(0)
-    
 
-if __name__ == '__main__':
+if __name__== "__main__":
+    train_data()
+
     while True:
-        run_menu()
+        option = run_menu()
+        if option == 9:
+            break
+        else:
+            run_program(option)
 
