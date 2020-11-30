@@ -2,6 +2,11 @@
 
 çektiğim ekran görüntüleri
 
+
+## projenin eğitim kısımları 'from_csv_data' klasörü içinde 
+
+
+
 ## verileri çekme halledildi
 <img src="img/1.png"/>
 
